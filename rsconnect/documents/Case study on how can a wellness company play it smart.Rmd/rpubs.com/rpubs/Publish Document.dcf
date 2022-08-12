@@ -1,0 +1,11 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/931893/e2ba22ad9bb14375890b6d9867e59c63
+bundleId: https://api.rpubs.com/api/v1/document/931893/e2ba22ad9bb14375890b6d9867e59c63
+url: http://rpubs.com/nikhil12/931893
+when: 1660284050.13124
+lastSyncTime: 1660284050.13125

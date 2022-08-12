@@ -1,0 +1,415 @@
+---
+title: "Case study on how can a wellness company play it smart"
+author: "Nikhil Sharma"
+date: "2022-08-11"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Data Analytics For How can a wellness company play it smart? A Case Study
+
+**Nikhil Sharma** <br />
+Center for computer and Communication Technology, Chisopani, Sikkim <br />
+Google/ Data Analytics Professional Certificate - Coursera <br />
+
+
+#### Keywords:
+Data Analytics, bellabeat, wellness, Case Study
+
+#### Abstract:
+
+Urška Sršen and Sando Mur founded Bellabeat, a high-tech company that manufactures health-focused smart products. Sršen has asked the marketing analytics team to focus on a Bellabeat product and analyze smart device usage data in order to gain insight into how people are already using their smart devices. Then, using this information, she would like high-level recommendations for how these trends can inform Bellabeat marketing strategy. The analytic techniques will provide both descriptive and predictive analysis.In addition, data from the company’s ERP system is integrated in the analysis. The proposed techniques will help the companies to provide smart device usage data in order to gain insight into how consumers use non-Bellabeat smart devices and how these trends can inform to improve Bellabeat marketing strategy.
+
+
+## 1. Introduction
+
+This exploratory analysis case study is towards Capstone project requirement for Google Data Analytics Professional Certificate. The case study involve to  analyze a smart device data to gain insight into how consumers are using their smart devices.The insights I discover will then help guide marketing strategy for the company. The dataset has been made available by a Public Domain, [Mobius](https://www.kaggle.com/arashnic)
+
+The analysis will follow the 6 phases of the Data Analysis process by the Google: Ask, Prepare, Process, Analyze, Share, and Act.
+
+#### 1.1 A brief explanation of these 6 phases:
+
+###### Ask
+
+* Ask effective questions
+* Define the scope of the analysis
+* Define what success looks like
+
+###### Prepare
+
+* Verify data’s integrity
+* Check data credibility and reliability
+* Check data types
+* Merge datasets
+
+###### Process
+
+* Clean, Remove and Transform data
+* Document cleaning processes and results
+
+###### Analyze
+
+* Identify patterns
+* Draw conclusions
+* Make predictions
+
+###### Share
+
+* Create effective visuals
+* Create a story for data
+* Share insights to stakeholders
+
+###### Act
+
+* Give recommendations based on insights
+* Solve problems
+* Create something new
+
+
+## 2. Business Understanding
+
+
+The focus of this section is to understand the basic concepts of our wellness company 'Bellabeat'. Project objectives are derived from the Director of Marketing and later converted into data science problem definitions.
+
+#### 2.1 Scenario'
+
+**Please note that this is a fictional case study.**
+
+Urška Sršen and Sando Mur founded Bellabeat, a high-tech company that manufactures health-focused smart products. Sršen used her background as an artist to develop beautifully designed technology that informs and inspires women around the world. Collecting data on activity, sleep, stress, and reproductive health has allowed Bellabeat to empower women with knowledge about their own health and habits. Since it was founded in 2013, Bellabeat has grown rapidly and quickly positioned itself as a tech-driven wellness company for women.
+
+By 2016, Bellabeat had opened offices around the world and launched multiple products. Bellabeat products became available through a growing number of online retailers in addition to their own e-commerce channel on their website. The company has invested in traditional advertising media, such as radio, out-of-home billboards, print, and television, but focuses on digital marketing extensively. Bellabeat invests year-round in Google Search, maintaining active Facebook and Instagram pages, and consistently engages consumers on Twitter. Additionally, Bellabeat runs video ads on Youtube and display ads on the Google Display Network to support campaigns around key marketing dates.
+
+Sršen knows that an analysis of Bellabeat’s available consumer data would reveal more opportunities for growth. She has asked the marketing analytics team to focus on a Bellabeat product and analyze smart device usage data in order to gain insight into how people are already using their smart devices. Then, using this information, she would like high-level recommendations for how these trends can inform Bellabeat marketing strategy
+
+Marketing team needs to design marketing strategies aimed at converting casual riders into annual members. In order to do that, however, the marketing analyst team needs to better understand how annual members and casual riders differ.
+
+Director of Marketing has assigned me the first question to answer: How do annual members and casual riders use Cyclistic bikes differently?
+
+#### 2.2 Stakeholders
+
+* Urška Sršen: Bellabeat’s cofounder and Chief Creative Officer
+* Sando Mur: Mathematician and Bellabeat’s cofounder; key member of the Bellabeat executive team
+
+#### 2.3 Objective
+Hence, the objective for this analysis is to give a proper insight of how non-bellabeat use smart devices and apply it to one of the bellabeat products. It would helpfull for Bellabeat marketing strategy.
+
+
+## 3. Data Understanding
+
+This section starts with initial data collection and proceeds with activities that targets understanding the data. These activities include ﬁrst insight into the data, identifying data for analytic purposes, discovering data quality issues and/or detecting interesting subsets to form hypothesis regarding previously un-detected patterns.
+
+#### 3.1 Data Source, Licensing, Privacy
+
+
+
+Would like to thank Möbius for providing this relevant dataset to conduct this smart wellness device usage and its trending
+
+* License: CC0: Public Domain
+* Source: <https://zenodo.org/record/53894#.X9oeh3Uzaao>
+* Privacy: These datasets were generated by respondents to a distributed survey via Amazon Mechanical Turk between 03.12.2016-05.12.2016. 
+
+Thirty eligible Fitbit users consented to the submission of personal tracker data, including minute-level output for physical activity, heart rate, and sleep monitoring.
+
+#### 3.2 Data Credibility Check Using ROCCC Method
+
+* Reliability: This Kaggle data set contains personal fitness tracker from 30 eligible Fitbit users, the sample size is too small, might not reflect the overall population, therefore chances of being bias is present. However, increasing the sample size by adding another data could help to address the limitation of small data size. Furthermore, the content section of the dataset mentioned that ‘Thirty eligible Fitbit users consented to the submission of personal tracker data’, further investigation and exploration is needed to find out the criteria for being ‘eligible’ users to the submission of the personal tracker data.
+
+* Original: The datasets are third party information from public domain by Mobius, not originally by the service provider, Amazon Mechanical Turk. Hence, the originality of the datasets are low.
+
+* Comprehensive: Missing information on age, gender, device type used on the tracking etc. hence, these datasets are not comprehensive.
+
+* Current: These datasets were generated by respondents to a distributed survey via Amazon Mechanical Turk between 03.12.2016-05.12.2016.
+
+* Cited: These datasets are considered as crowd-sourcing data generated by respondents to a distributed survey via Amazon Mechanical Turk, hence, the data source is considered properly cited.
+
+A total of 18 datasets have been made available for each health-focused data collected by smart products . Each dataset captures the details of every health-focused activity logged by the customers of bellabeat. This data that has been made publicly available has been scrubbed to omit customer’s personal information.
+
+#### 3.3 Documentation, Cleaning and Preparation of data for analysis
+
+The combined size of all the 18 datasets which is massive in size. Data cleaning in spreadsheets will be time-consuming and slow compared to SQL or R. I am choosing R simply because I could do both data wrangling and analysis/ visualizations in the same platform. It is also an opportunity for me to learn R in a better way.
+
+
+## 4.  Data Preparation
+
+This section provides insight into the business problems before performing data modeling. The data preparation phase include activities, such as data selection, data transformation, data cleaning and data validation. Data preparation tasks may be performed several times and not in any given order. During this phase important issues are addressed like selecting the relevant data, cleaning of data, discarding unacceptable data and how the ERP system data can be integrated into the ﬁnal data sets.
+
+
+#### 4.1 Loading Datsets
+
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(lubridate)
+library(dplyr)
+library(geosphere)
+library(readr)
+library(janitor)
+library(data.table)
+library(tidyr)
+library(scales)
+
+```
+
+
+
+#### 4.2 Load the 18 Datasets in their respective variable name
+
+The 18 health-focused data(in CSV format) are extracted and stored in one folder titled “fitbase-data”.
+
+```{r}
+
+  daily_activity <- read.csv("../fitbase_data/dailyActivity_merged.csv")
+  daily_calories <- read.csv("../fitbase_data/dailyCalories_merged.csv")
+  daily_intensities <- read.csv("../fitbase_data/dailyIntensities_merged.csv")
+  daily_steps <- read.csv("../fitbase_data/dailySteps_merged.csv")
+  
+  heartrate_seconds <- read.csv("../fitbase_data/heartrate_seconds_merged.csv")
+  hourly_calories <- read.csv("../fitbase_data/hourlyCalories_merged.csv")
+  hourly_intensities <- read.csv("../fitbase_data/hourlyIntensities_merged.csv")
+  hourly_steps <- read.csv("../fitbase_data/hourlySteps_merged.csv")
+  
+  minute_calories_narrow <- read.csv("../fitbase_data/minuteCaloriesNarrow_merged.csv")
+  minute_calories_wide <- read.csv("../fitbase_data/minuteCaloriesWide_merged.csv")
+  minute_intensities_narrow <- read.csv("../fitbase_data/minuteIntensitiesNarrow_merged.csv")
+  minute_intensities_wide <- read.csv("../fitbase_data/minuteIntensitiesWide_merged.csv")
+  
+  minute_METs_narrow <- read.csv("../fitbase_data/minuteMETsNarrow_merged.csv")
+  minute_sleep <- read.csv("../fitbase_data/minuteSleep_merged.csv")
+  minute_steps_narrow <- read.csv("../fitbase_data/minuteStepsNarrow_merged.csv")
+  minute_steps_wide <- read.csv("../fitbase_data/minuteStepsWide_merged.csv")
+ 
+   sleep_day <- read.csv("../fitbase_data/sleepDay_merged.csv")
+  weight_log_info <- read.csv("../fitbase_data/weightLogInfo_merged.csv")
+
+```
+
+#### 4.3 Check data structures and data types for all data frames for data integrity
+
+```{r}
+head(daily_activity)
+head(daily_calories)
+head(daily_intensities)
+head(daily_steps)
+
+head(heartrate_seconds)
+head(hourly_calories)
+head(hourly_intensities)
+head(hourly_steps)
+
+head(minute_calories_narrow)
+head(minute_calories_wide)
+head(minute_intensities_narrow)
+head(minute_intensities_wide)
+
+head(minute_METs_narrow)
+head(minute_sleep)
+head(minute_steps_narrow)
+head(minute_steps_wide)
+
+head(sleep_day)
+head(weight_log_info)
+
+
+```
+
+
+The following 3 datasets will be used for trend analysis:
+
+* dailyActivity_merged.csv
+* sleepDay_merged.csv
+* weightLogInfo_merged.csv
+
+#### 4.4 Active Users
+
+First, we will be looking at the kind of users who use smart devices. According to the U.S. Department of Health and Human Service, the average woman expands rough;y 1,600 to 2,400 calories per day. We, thus, consider any day with over 2,400 calories expended to be an active day.
+
+```{r}
+
+
+
+dailyCalories <- subset(daily_calories,Calories>500)
+
+days_active <- dailyCalories %>% 
+  group_by(Id) %>% 
+  summarise(is_active = sum(Calories >2400), days_recorded = sum(Calories>0))
+
+days_active <- subset(days_active,days_recorded > 15)
+
+
+print(days_active)
+
+```
+
+Of the subject group, 12 spend more than half of the recorded days having some form of exercise, while 15 did not have any form of exercise in more than 5 days. This shows that while some of these smart device users track their frequent physical activities, there is also a significant proportion of the users who use them to track their normal daily lifestyle.
+
+
+## 5. Exploratory Analysis
+
+Exploratory data analysis (EDA) is primarily a graphic approach that provides a ﬁrst insight into the data. There are no formal set of rules that can be used in EDA, however, common approaches are: summary statistics, correlation, visualization and aggregation.Summary statistics or univariate analysis is the ﬁrststep that helps us to understand data. Univariate analysis is the simplest form of data analysis where the data being analyzed contains only one variable. Further, data correlation or multivariate analysis helps us to ﬁnd relationships between two or more variables.
+
+Finding connections between variables also has a crucial impact on choosing and building the predictive model(s). Data visualization helps us to gain perspective into the data, such as to ﬁnd anomalies and to detect outliers. Finally, data aggregation helps us to group data from coarser to ﬁner granularity in order to improve understanding.
+
+#### 5.1 Total Steps Vs Sedentary Minutes
+
+Just by seeing the heads and a quick summary one can’t see the full trend of the dataframes. So I will plot some graphs to see the relationship properly.
+
+I would like to start with the relationship between steps taken in a da and sedentary(people were inactive) minutes
+```{r}
+ggplot(data=daily_activity, aes(x=TotalSteps, y=SedentaryMinutes, color = Calories)) + geom_point() + geom_smooth() + labs(title = "Total Steps Vs Sedentary minutes ", subtitle ="This plot is based on the value from Daily Activity Dataset", x = "Total Steps", y="Sedentary Minutes")
+```
+
+relation between total steps and sedentary minutes which is true also because one doesn’t move when he/she is inactive!
+
+
+#### 5.2 Total Steps VS Calories
+
+
+So we can easily market this to consumers by telling them smart-devices could help them start their journey by measuring how much they’re already moving!
+
+The can also know about their sedentary time.
+
+One can note that sedentary time is not necessarily related to calories burned.
+
+Now I will plot the graph between calories and total steps to see the relationship between them.
+
+
+```{r}
+
+
+ggplot(data=daily_activity, aes(x=TotalSteps, y = Calories, ))+ geom_point() + stat_smooth(method=lm) +labs(title = "Total Steps Vs Calories ", subtitle ="This plot is based on the value from Daily Activity Dataset", x = "Total Steps", y="Calories")
+```
+We can clearly see people who took the most total steps tend to burn the most calories. But there is a lot of spread in the value.
+
+Now lets look at the residual or the difference between the observed values and the estimated value
+
+
+#### 5.3 Calories Burned per Steps
+
+
+```{r}
+calories.lm <- lm(Calories ~ TotalSteps, data = daily_activity)
+calories.res <- resid(calories.lm)
+
+plot(daily_activity$TotalSteps, calories.res, ylab="Residuals",
+     xlab = "Total Steps", main = "Calories Burned")
+abline(0,0) 
+ 
+```
+
+
+#### 5.4 Calories Density
+
+```{r}
+plot(density(calories.res))
+```
+
+
+#### 5.5 Calories Normality
+
+```{r}
+#Checking for normality 
+qqnorm(calories.res)
+qqline(calories.res)
+```
+
+So it looks like the spread isn’t as far statistically as we thought.
+
+
+#### 5.6 Relation between sleep and time in bed
+
+By seeing linear relationship in the graphs we can market that in order to burn calories we do not need to do high-intensity work out, one just needs to walk.
+
+
+
+```{r}
+ggplot(data=sleep_day, aes(x=TotalMinutesAsleep, y=TotalTimeInBed)) + geom_point()+ stat_smooth(method=lm) +labs(title = "Relation between sleep and time in bed ", subtitle ="This plot is based on the value from Sleep Day Dataset", x = "Total Minute Sleep", y="Total Minute in Bed")
+
+```
+As we can see, there are some outliers, some people that spent a lot of time in bed, but didn’t actually sleep, and then a small batch that slept a whole bunch and spent time in bed
+
+
+#### 5.7 What’s the relationship between weight and BMI?
+
+```{r}
+
+ggplot(data=weight_log_info, aes(x=WeightKg, y=BMI)) + geom_line() + labs(title = "Weight VS BMI ", subtitle ="This plot is based on Weigh Log Info Dataset", x = "Weight (Kg)", y="BMI")
+```
+
+#### 5.8 Average User Spend their Day
+
+Next. we look at how the average user spend their day. Going on the average calories spent per hour depending on activities, we assume: 1. Sleep: < 80 calories per hour 2. Normal: >=80, < 150 calories per hour 3. Moderate exercise: >=150, < 400 calories per hour 4. Intense exercise: >= 400 calories per hour
+
+```{r}
+hourlyCalories <- hourly_calories
+hourlyCalories$ActivityHour <- mdy_hms(hourlyCalories$ActivityHour)
+hourlyCalories$date <- date(hourlyCalories$ActivityHour)
+hourlyCalories$hour <- hour(hourlyCalories$ActivityHour)
+
+
+hourlyCalories$activity <- ifelse(hourlyCalories$Calories < 80, "sleep",
+                            ifelse ( (hourlyCalories$Calories >=80 & hourlyCalories$Calories < 150), "normal",
+                              ifelse ((hourlyCalories$Calories >=150 & hourlyCalories$Calories < 400), "moderate_exercise", "intense_exercise")))
+
+usage <- count(hourlyCalories, vars= hour)
+
+activity <- hourlyCalories %>% 
+  group_by(hour) %>% 
+  summarise(count_sleep = sum(activity == "sleep"), count_normal = sum(activity == "normal"), count_moderate_exercise = sum(activity == "moderate_exercise"), count_intense_exercise = sum(activity=="intense_exercise"))
+
+activity_sorted_long <- 
+  activity %>% 
+  gather(c("count_normal","count_moderate_exercise","count_intense_exercise"),key="Activity",value="Count")
+
+ggplot(data = activity_sorted_long, aes (x = hour, y = Count, colour = Activity)) +
+  geom_line()+labs(title = "How Average User Spend their Day ", subtitle =" Going on the average calories spent per hour depending on activities", x = "Hour", y="Count")
+
+
+```
+
+#### 5.9 Significant Usage of Fitbit data
+
+Finally, we try to look at whether the users change their habits over the course of their smart device usage. We do this by tracking their daily calories usage and observing whether they change over time.   
+
+
+```{r}
+ggplot(data = dailyCalories, aes (x = ActivityDay, y = Calories, colour = (factor(Id)), group = 33)) +
+  theme(axis.text.x=element_blank()) +
+  geom_point() + geom_smooth() + labs(title = "Changing habits of user over the course of smart device usage ", subtitle ="This plot is based on Daily Calories dataset ", x = "Acitivity Day", y="Calories")
+```
+We can tell there is little to no significant change in their habits over the average period of 30 days for each test subject.
+
+
+
+## 6. Evaluation
+
+#### 6.1 Recommendation
+
+##### 6.1.1 Three key recommendations are proposed to convert casual riders to annual members:
+
+* Marketing for Bellabeat devices should be marketed as a fashion piece or statement with a secondary benefit of tracking health indicators to promote a self-confident, self-sufficient and independent lifestyle rather than a fitness or healthy lifestyle. The focus should be only “Taking good care and pampering yourself” rather than “Staying healthy”.
+
+* The Bellabeat app should focus on social aspects of the users lifestyles and provide minor goals or recommendations to improve their wellness. The app can focus on what the users have done well and allow them to publish these successes on their social media to allow them to portray their excellent usage of the Bellabeat device and an exemplary social media image of themselves.
+* One of the most beneficial features of smart wearing devices is to motivate customers to have healthier lifestyles. A peer comparison feature might be developed to encourage customers to increase their active level to improve their health.
+
+* As the data quality is not great based on POCCC review, all the abpve recommendations required further validation.
+
+##### 6.1.2 Two other recommendations are proposed to increase sales:
+
+* since in the scenario of the case study provided to me it was written Bellabeat collects hydration data because they had one product related to hydration check, they are better because fitbit did not have hydration data.
+
+* A marketing strategy can be implemented to tell about sufficient sleep required by body, how it be achieved and how bellabeat can help them keep track of it and improve it.
+
+#### 6.2 Further exploration
+
+* We can see that more people log their calories, steps taken, etc, and fewer users log their sleep data, and only a select few are logging their weight.
+
+*  The daily activities of the users are mostly sedentary in nature and few change their lifestyle significant based on the Fitbit data provided. As such, most users do not wear these devices to improve to a healthy lifestyle.
+
+#### 7. Resources
+-   [Stack Overflow](https://stackoverflow.com/)
+-   [RDocumentation](https://www.rdocumentation.org/)
+-   [RStudio](https://community.rstudio.com/) and [Kaggle](https://www.kaggle.com/) community
